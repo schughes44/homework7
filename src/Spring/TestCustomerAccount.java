@@ -44,6 +44,21 @@ class TestCustomerAccount {
 			assertEquals(String.format("Account for %s at %s not created", name, phone), nae.getMessage(), "The exception messages do not match");
 		}	
 	}
+	
+	//Monica Test
+	@Test
+	void TestUpdateCustomerNameThrowsExceptionIfAccountNumberDoesNotExist() throws NoSuchCustomerAccountException {
+		// test data
+		String name = "Andy";
+		String acctNum = "987654321";
+		
+		try {
+			name.UpdateCustomerName(name, acctNum);
+		} catch (SQLException se) {
+			String expected = String.format(name, acctNum);
+		}	
+	}
+	
 
 	@AfterEach
 	void tearDown() throws Exception {
