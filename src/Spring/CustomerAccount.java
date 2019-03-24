@@ -59,7 +59,7 @@ public class CustomerAccount {
 		return null;
 	}
 
-	public void setCustomerAccountDAO(CustomerAccountDAO cad) {
+	public void newCustomerAccountDAO(CustomerAccountDAO cad) {
 		this.cad = cad;
-}
+	}
 }
