@@ -10,8 +10,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
-
-
 class TestCustomerAccount {
 	private CustomerAccount account;
 	
@@ -26,6 +24,13 @@ class TestCustomerAccount {
 		account = new CustomerAccount();
 		spyForAccount = spy(account);
 		cad = mock(CustomerAccountDAO.class); 
+	}
+	
+	@AfterEach
+	void tearDown() throws Exception {
+		account = null;
+		spyForAccount = null;
+		cad = null;
 	}
 	
 	@Test
@@ -59,9 +64,21 @@ class TestCustomerAccount {
 		}	
 	}
 	
-
-	@AfterEach
-	void tearDown() throws Exception {
+	//Alber's Test
+	@Test
+	void testUpdateCustomerName() throws NoSuchCustomerAccountException, SQLException {
+		String actNum = "561836456";
+		String name = "Alber";
+		
+		when(cad).thenThrow(new SQLException());
+		spyForAccount.newCustomerAccountDAO(cad);
+		
+		try {
+			spyForAccount.updateCustomerName(actNum, name);
+			fail("Failed Exception");
+		} catch (NoSuchCustomerAccountException e) {
+			assertEquals(String.format("No customer record with acctount number %s ", actNum), e.getMessage(), "The exception message do not match");
+		}
 	}
 
 }
